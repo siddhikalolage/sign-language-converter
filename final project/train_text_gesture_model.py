@@ -14,6 +14,8 @@ from torch_gesture_model import predict_proba_numpy
 from torch_gesture_model import save_torch_gesture_checkpoint
 from torch_gesture_model import train_torch_gesture_model
 
+PROJECT_ROOT = Path(__file__).resolve().parent
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -21,13 +23,13 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--data-folder",
-        default="text_gesture_data",
+        default=str(PROJECT_ROOT / "text_phrase_image_data"),
         help="Folder containing the extracted gesture CSVs.",
     )
     parser.add_argument(
         "--backend",
         choices=("torch", "sklearn"),
-        default="torch",
+        default="sklearn",
         help="Classifier backend to train.",
     )
     parser.add_argument(
@@ -36,7 +38,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--encoder-output",
-        default="text_label_encoder.pkl",
+        default=str(PROJECT_ROOT / "text_phrase_image_label_encoder.pkl"),
         help="Where to save the fitted label encoder.",
     )
     parser.add_argument(
@@ -54,8 +56,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--split-strategy",
         choices=("video", "frame"),
-        default="video",
-        help="Use a source-video-aware split for more realistic evaluation.",
+        default="frame",
+        help="Use a frame split for image data or a video-aware split for grouped video samples.",
     )
     parser.add_argument(
         "--n-estimators",
@@ -111,7 +113,7 @@ def resolve_model_output(args: argparse.Namespace) -> str:
         return args.model_output
     if args.backend == "torch":
         return str(DEFAULT_TORCH_MODEL_PATH)
-    return "text_gesture_model.pkl"
+    return str(PROJECT_ROOT / "text_phrase_image_model.pkl")
 
 
 def evaluate_sklearn_backend(

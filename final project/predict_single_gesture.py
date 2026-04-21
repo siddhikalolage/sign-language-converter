@@ -23,6 +23,7 @@ from gesture_pipeline import (
 )
 
 
+PROJECT_ROOT = Path(__file__).resolve().parent
 FACE_FEATURE_COUNT = 18
 HAND_FEATURE_COUNT = 63
 
@@ -114,12 +115,12 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--classifier-path",
-        default="text_gesture_model.pkl",
+        default=str(PROJECT_ROOT / "text_phrase_image_model.pkl"),
         help="Path to the trained sklearn gesture model.",
     )
     parser.add_argument(
         "--label-encoder-path",
-        default="text_label_encoder.pkl",
+        default=str(PROJECT_ROOT / "text_phrase_image_label_encoder.pkl"),
         help="Path to the fitted label encoder.",
     )
     parser.add_argument(

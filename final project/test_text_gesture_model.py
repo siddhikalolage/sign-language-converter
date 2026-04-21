@@ -16,6 +16,8 @@ from gesture_features import make_gesture_model_pipeline
 from torch_gesture_model import predict_proba_numpy
 from torch_gesture_model import train_torch_gesture_model
 
+PROJECT_ROOT = Path(__file__).resolve().parent
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -23,18 +25,18 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--data-folder",
-        default="text_gesture_data",
+        default=str(PROJECT_ROOT / "text_phrase_image_data"),
         help="Folder containing extracted gesture CSV data.",
     )
     parser.add_argument(
         "--backend",
         choices=("torch", "sklearn"),
-        default="torch",
+        default="sklearn",
         help="Classifier backend to evaluate.",
     )
     parser.add_argument(
         "--save-plot",
-        default="confusion_matrix.png",
+        default=str(PROJECT_ROOT / "confusion_matrix.png"),
         help="Where to save the confusion matrix image.",
     )
     parser.add_argument(
@@ -45,14 +47,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--split-strategy",
         choices=("video", "frame"),
-        default="video",
-        help="Use a source-video-aware split for more realistic evaluation.",
+        default="frame",
+        help="Use a frame split for image data or a video-aware split for grouped video samples.",
     )
     parser.add_argument(
         "--smoothing-window",
         type=int,
         default=5,
-        help="Average prediction probabilities over this many frames per video.",
+        help="Average prediction probabilities over this many grouped samples when using video-aware evaluation.",
     )
     parser.add_argument(
         "--random-state",

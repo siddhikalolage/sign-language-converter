@@ -3,9 +3,11 @@ import json
 import os
 from pathlib import Path
 
+PROJECT_ROOT = Path(__file__).resolve().parent
+
 
 def configure_ultralytics_workspace() -> Path:
-    config_dir = Path(".ultralytics").resolve()
+    config_dir = (PROJECT_ROOT / ".ultralytics").resolve()
     config_dir.mkdir(parents=True, exist_ok=True)
     os.environ.setdefault("YOLO_CONFIG_DIR", str(config_dir))
     return config_dir
@@ -66,7 +68,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--dataset-folder",
-        default="yolo_phrase_dataset",
+        default=str(PROJECT_ROOT / "yolo_phrase_dataset"),
         help="Prepared YOLO classification dataset root with train/val folders.",
     )
     parser.add_argument(
@@ -99,7 +101,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--project",
-        default="runs/yolo_phrase_cls",
+        default=str(PROJECT_ROOT / "runs" / "yolo_phrase_cls"),
         help="Folder where YOLO training runs are stored.",
     )
     parser.add_argument(
@@ -109,7 +111,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--save-model-to",
-        default="text_phrase_yolo_cls.pt",
+        default=str(PROJECT_ROOT / "text_phrase_yolo_cls.pt"),
         help="Where to copy the best YOLO checkpoint after training.",
     )
     parser.add_argument(

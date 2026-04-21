@@ -15,8 +15,9 @@ from gesture_pipeline import landmark_quality_score
 from gesture_pipeline import sanitize_label
 
 
-DEFAULT_IMAGES_FOLDER = Path("images for phrases")
-DEFAULT_OUTPUT_FOLDER = Path("text_phrase_image_data")
+PROJECT_ROOT = Path(__file__).resolve().parent
+DEFAULT_IMAGES_FOLDER = PROJECT_ROOT / "images for phrases"
+DEFAULT_OUTPUT_FOLDER = PROJECT_ROOT / "text_phrase_image_data"
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
 
 

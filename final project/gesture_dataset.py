@@ -19,7 +19,7 @@ def load_dataset(data_folder: Path | str = DATA_FOLDER) -> tuple[np.ndarray, np.
     if not data_folder.is_dir():
         raise FileNotFoundError(
             f"Gesture data folder not found: {data_folder}\n"
-            "Run create_text_gesture_data_from_videos.py first, or specify --data-folder."
+            "Create the extracted landmark dataset first, or specify --data-folder."
         )
 
     samples: list[np.ndarray] = []
@@ -52,8 +52,7 @@ def load_dataset(data_folder: Path | str = DATA_FOLDER) -> tuple[np.ndarray, np.
     if not samples:
         raise ValueError(
             "No training samples were found. "
-            "The current text_gesture_data folders are empty, so run "
-            "create_text_gesture_data_from_videos.py successfully first."
+            "The current extracted landmark dataset is empty, so create the image or video CSV data first."
         )
 
     label_counts = Counter(labels)

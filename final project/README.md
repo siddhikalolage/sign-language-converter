@@ -25,6 +25,8 @@ It contains the final two approaches we agreed on:
   Creates YOLO train/val/test image splits
 - `train_yolo_phrase_model.py`
   Trains the YOLO image classifier
+- `custom_train.py`
+  One-step custom dataset trainer for landmark, YOLO, or both
 
 ## Core Helper Files
 
@@ -68,6 +70,8 @@ Run the YOLO backup predictor:
 python predict_phrase_yolo.py --model-path text_phrase_yolo_cls.pt --class-map yolo_phrase_dataset/class_name_map.json
 ```
 
+Both live predictors now resolve files from the project folder itself, so they can be launched even when your terminal is opened in a different directory.
+
 ## Recreate Landmark Dataset
 
 ```powershell
@@ -77,13 +81,13 @@ python create_text_gesture_data_from_images.py
 ## Train Landmark Model
 
 ```powershell
-python train_text_gesture_model.py --data-folder text_phrase_image_data --backend sklearn --split-strategy frame --model-output text_phrase_image_model.pkl --encoder-output text_phrase_image_label_encoder.pkl
+python train_text_gesture_model.py
 ```
 
 ## Test Landmark Model
 
 ```powershell
-python test_text_gesture_model.py --data-folder text_phrase_image_data --backend sklearn --split-strategy frame
+python test_text_gesture_model.py
 ```
 
 ## Recreate YOLO Dataset
@@ -97,3 +101,24 @@ python prepare_yolo_classification_dataset.py --source-folder "images for phrase
 ```powershell
 python train_yolo_phrase_model.py --dataset-folder yolo_phrase_dataset --model yolov8n-cls.yaml --epochs 25 --imgsz 224 --batch 16 --device cpu --save-model-to text_phrase_yolo_cls.pt
 ```
+
+## Custom Dataset Training
+
+You can train on your own image folders with one command:
+
+```powershell
+python custom_train.py
+```
+
+Or run it directly with arguments:
+
+```powershell
+python custom_train.py --images-folder "C:\path\to\my_images" --mode both --project-name my_project --overwrite
+```
+
+This script can:
+- create landmark CSV data from your image folders
+- train a landmark model
+- prepare a YOLO dataset split
+- train a YOLO model
+- print the exact prediction commands for the new custom models

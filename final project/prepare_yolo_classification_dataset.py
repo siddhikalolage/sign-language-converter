@@ -6,6 +6,7 @@ from pathlib import Path
 
 from gesture_pipeline import sanitize_label
 
+PROJECT_ROOT = Path(__file__).resolve().parent
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
 
 
@@ -22,12 +23,12 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--source-folder",
-        default="images for phrases",
+        default=str(PROJECT_ROOT / "images for phrases"),
         help="Folder containing one subfolder per class with source images inside.",
     )
     parser.add_argument(
         "--output-folder",
-        default="yolo_phrase_dataset",
+        default=str(PROJECT_ROOT / "yolo_phrase_dataset"),
         help="Folder where the train/val/test split will be written.",
     )
     parser.add_argument(

@@ -7,9 +7,10 @@ from types import SimpleNamespace
 import cv2
 import numpy as np
 
+PROJECT_ROOT = Path(__file__).resolve().parent
 DATA_FOLDER = Path("text_gesture_data")
 VIDEO_DATA_FOLDER = Path("video dataset")
-DEFAULT_MODEL_PATH = Path("holistic_landmarker.task")
+DEFAULT_MODEL_PATH = PROJECT_ROOT / "holistic_landmarker.task"
 DEFAULT_FRAME_SKIP = 5
 DEFAULT_HOLISTIC_MODEL_URL = (
     "https://storage.googleapis.com/mediapipe-models/"
