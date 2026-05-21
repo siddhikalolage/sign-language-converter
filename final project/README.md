@@ -27,6 +27,8 @@ It contains the final two approaches we agreed on:
   Trains the YOLO image classifier
 - `custom_train.py`
   One-step custom dataset trainer for landmark, YOLO, or both
+- `web_app.py`
+  Website backend for browser-based prediction
 
 ## Core Helper Files
 
@@ -71,6 +73,26 @@ python predict_phrase_yolo.py --model-path text_phrase_yolo_cls.pt --class-map y
 ```
 
 Both live predictors now resolve files from the project folder itself, so they can be launched even when your terminal is opened in a different directory.
+
+## Website Run
+
+Run the website backend:
+
+```powershell
+python web_app.py
+```
+
+Then open:
+
+```text
+http://127.0.0.1:8000
+```
+
+Website features:
+- webcam prediction
+- image upload prediction
+- model switch between Landmark and YOLO
+- simplified result-focused interface
 
 ## Recreate Landmark Dataset
 
